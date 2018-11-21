@@ -128,6 +128,7 @@ public class experimento_berdeja extends LinearOpMode {
                             silverMineral2X = (int) recognition.getLeft();
                           }
                         }
+                          /* se localiza el gold mineral si encuentra  objetos en a imagen */
                         if (goldMineralX != -1 && silverMineral1X != -1 && silverMineral2X != -1) {
                           if (goldMineralX < silverMineral1X && goldMineralX < silverMineral2X) {
                             telemetry.addData("Gold Mineral Position", "Left");
