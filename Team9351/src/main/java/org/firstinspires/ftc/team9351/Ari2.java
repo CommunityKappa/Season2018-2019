@@ -51,7 +51,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  */
 
 @TeleOp(name="Aristoteles", group="Iterative Opmode")
-@Disabled
+//@Disabled
 public class Ari2 extends LinearOpMode {
 
     /* Declare OpMode members. */
