@@ -93,6 +93,14 @@ public class chasis_mechanum extends LinearOpMode {
                 turbo = 1;
             }
 
+            if (gamepad1.dpad_up){
+                hws.lift.setPower(1);
+            } else if (gamepad1.dpad_down){
+                hws.lift.setPower(-1);
+            } else{
+                hws.lift.setPower(0);
+            }
+
 
             telemetry.addData("Turboooooooo", turbo);
             // Sets the joystick values to variables for better math understanding

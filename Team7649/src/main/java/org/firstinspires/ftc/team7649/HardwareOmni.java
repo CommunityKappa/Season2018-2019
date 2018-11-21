@@ -55,6 +55,7 @@ public class HardwareOmni {
     public DcMotor frontRightDrive = null;
     public DcMotor backLeftDrive = null;
     public DcMotor backRightDrive = null;
+    public DcMotor lift = null;
 
     public double y1;
     public double x1;
@@ -84,17 +85,21 @@ public class HardwareOmni {
         frontRightDrive = hwMap.get(DcMotor.class, "FR");
         backLeftDrive = hwMap.get(DcMotor.class, "BL");
         backRightDrive = hwMap.get(DcMotor.class, "BR");
+        lift= hwMap.get(DcMotor.class, "LF");
 
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         backRightDrive.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        lift.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+
 
         // Set all motors to zero power
         frontLeftDrive.setPower(0);
         frontRightDrive.setPower(0);
         backLeftDrive.setPower(0);
         backRightDrive.setPower(0);
+        lift.setPower(0);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
@@ -102,6 +107,7 @@ public class HardwareOmni {
         frontRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 }
 
