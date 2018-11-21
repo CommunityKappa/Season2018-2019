@@ -57,6 +57,7 @@ public class HardwareAri {
     public DcMotor centreDrive = null;
     public DcMotor recogedor = null;
     public DcMotor lift = null;
+    public DcMotor liftA = null;
     public DcMotor arti = null;
     public DcMotor slider = null;
 
@@ -80,8 +81,10 @@ public class HardwareAri {
         centreDrive = hwMap.get(DcMotor.class, "CM");
         recogedor = hwMap.get(DcMotor.class, "RE");
         lift = hwMap.get(DcMotor.class, "LF");
+        liftA = hwMap.get(DcMotor.class, "LFA");
         arti = hwMap.get(DcMotor.class, "AR");
         slider = hwMap.get(DcMotor.class, "SL");
+
 
 
 
@@ -89,6 +92,7 @@ public class HardwareAri {
         rightDrive.setDirection(DcMotor.Direction.REVERSE);
         centreDrive.setDirection(DcMotor.Direction.FORWARD);
         lift.setDirection(DcMotor.Direction.FORWARD);
+        liftA.setDirection(DcMotor.Direction.FORWARD);
         arti.setDirection(DcMotor.Direction.FORWARD);
         recogedor.setDirection(DcMotor.Direction.FORWARD);
         slider.setDirection(DcMotor.Direction.FORWARD);
@@ -99,6 +103,7 @@ public class HardwareAri {
         rightDrive.setPower(0);
         centreDrive.setPower(0);
         lift.setPower(0);
+        liftA.setPower(0);
         recogedor.setPower(0);
         arti.setPower(0);
         slider.setPower(0);
@@ -110,6 +115,7 @@ public class HardwareAri {
         rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        liftA.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         recogedor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         arti.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         slider.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
