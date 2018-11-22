@@ -59,16 +59,6 @@ public class Ari2 extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        double leftPower;               //power para calcular
-        double rightPower;
-        double centrePower;
-
-
-        double drive = -gamepad1.left_stick_y;   //se calcula el power para las llantas
-        double turn = gamepad1.left_stick_x;
-        leftPower = Range.clip(drive + turn, -1.0, 1.0);
-        rightPower = Range.clip(drive - turn, -1.0, 1.0);
-        centrePower = gamepad1.right_stick_x;
 
         /* Initialize the hardware variables.
          * The init() method of the hardware class does all the work here
@@ -76,7 +66,7 @@ public class Ari2 extends LinearOpMode {
         robot.init(hardwareMap);
 
         // Send telemetry message to signify robot waiting;
-        telemetry.addData("Say", "Hello negrote");    //
+        telemetry.addData("Say", "Hello negrote bb parte 2");    //
         telemetry.update();
 
         // Wait for the game to start (driver presses PLAY)
@@ -85,6 +75,17 @@ public class Ari2 extends LinearOpMode {
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
+
+            double leftPower;               //power para calcular
+            double rightPower;
+            double centrePower;
+
+
+            double drive = gamepad1.left_stick_y;   //se calcula el power para las llantas y el negativo ese
+            double turn = gamepad1.left_stick_x;
+            leftPower = Range.clip(drive + turn, -1.0, 1.0);
+            rightPower = Range.clip(drive - turn, -1.0, 1.0);
+            centrePower = gamepad1.right_stick_x;
             // Run wheels in POV mode (note: The joystick goes negative when pushed forwards, so negate it)
             // In this mode the Left stick moves the robot fwd and back, the Right stick turns left and right.
             // This way it's also easy to just drive straight, or just turn.
@@ -112,10 +113,14 @@ public class Ari2 extends LinearOpMode {
 
             if (gamepad1.dpad_up) {
                 robot.lift.setPower(1);
+                robot.liftA.setPower(1);
             } else if (gamepad1.dpad_down) {
                 robot.lift.setPower(-1);
+                robot.liftA.setPower(-1);
             } else {
                 robot.lift.setPower(0);
+                robot.liftA.setPower(0);
+
             }
            //start b
             if (gamepad2.a){
