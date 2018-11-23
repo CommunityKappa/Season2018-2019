@@ -76,16 +76,18 @@ public class Ari2 extends LinearOpMode {
         while (opModeIsActive()) {
 
 
+
             double leftPower;               //power para calcular
             double rightPower;
             double centrePower;
 
 
             double drive = gamepad1.left_stick_y;   //se calcula el power para las llantas y el negativo ese
-            double turn = gamepad1.left_stick_x;
+            double turn = -gamepad1.left_stick_x;
             leftPower = Range.clip(drive + turn, -1.0, 1.0);
             rightPower = Range.clip(drive - turn, -1.0, 1.0);
             centrePower = gamepad1.right_stick_x;
+            centrePower = Range.clip(centrePower,-0.5,0.5);  //ni idea de que pasa
             // Run wheels in POV mode (note: The joystick goes negative when pushed forwards, so negate it)
             // In this mode the Left stick moves the robot fwd and back, the Right stick turns left and right.
             // This way it's also easy to just drive straight, or just turn.
