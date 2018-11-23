@@ -56,6 +56,10 @@ public class HardwareOmni {
     public DcMotor backLeftDrive = null;
     public DcMotor backRightDrive = null;
     public DcMotor lift = null;
+    public DcMotor slider = null;
+    public DcMotor arti = null;
+    public DcMotor intake = null;
+
 
     public double y1;
     public double x1;
@@ -66,6 +70,7 @@ public class HardwareOmni {
     public double backLeftPower;
     public double max;
     public double turbo;
+
 
     /* local OpMode members. */
     HardwareMap hwMap = null;
@@ -85,13 +90,20 @@ public class HardwareOmni {
         frontRightDrive = hwMap.get(DcMotor.class, "FR");
         backLeftDrive = hwMap.get(DcMotor.class, "BL");
         backRightDrive = hwMap.get(DcMotor.class, "BR");
-        lift= hwMap.get(DcMotor.class, "LF");
+        lift = hwMap.get(DcMotor.class, "LF");
+        slider = hwMap.get(DcMotor.class, "SL");
+        arti = hwMap.get(DcMotor.class, "AR");
+        intake = hwMap.get(DcMotor.class, "IN");
+
 
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         backRightDrive.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
         lift.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        slider.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        arti.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        intake.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
 
 
         // Set all motors to zero power
@@ -100,6 +112,9 @@ public class HardwareOmni {
         backLeftDrive.setPower(0);
         backRightDrive.setPower(0);
         lift.setPower(0);
+        slider.setPower(0);
+        arti.setPower(0);
+        intake.setPower(0);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
@@ -108,6 +123,13 @@ public class HardwareOmni {
         backLeftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backRightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        slider.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        arti.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+
+
+
     }
 }
 

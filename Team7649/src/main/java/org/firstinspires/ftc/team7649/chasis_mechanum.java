@@ -76,7 +76,6 @@ public class chasis_mechanum extends LinearOpMode {
             // In this mode the Left stick moves the robot fwd and back, the Right stick turns left and right.
             // This way it's also easy to just drive straight, or just turn.
             double turbo = 0;
-
             int cero = 0;
             int cienochenta = 180;
 
@@ -93,12 +92,36 @@ public class chasis_mechanum extends LinearOpMode {
                 turbo = 1;
             }
 
-            if (gamepad1.dpad_up){
+            if (gamepad1.dpad_up){          //set power elevador
                 hws.lift.setPower(1);
             } else if (gamepad1.dpad_down){
                 hws.lift.setPower(-1);
             } else{
                 hws.lift.setPower(0);
+            }
+
+            if (gamepad1.b){              // set power intake
+                hws.intake.setPower(1);
+            } else if (gamepad1.x) {
+                hws.intake.setPower(-1);
+            } else {
+                hws.intake.setPower(0);
+            }
+
+            if (gamepad1.right_bumper){   // set power
+                hws.slider.setPower(1);
+            } else if (gamepad1.left_bumper){
+                hws.slider.setPower(-1);
+            } else{
+                hws.slider.setPower(0);
+            }
+
+            if (gamepad1.y){
+                hws.arti.setPower(1);
+            } else if(gamepad1.a){
+                hws. arti. setPower(-1);
+            } else{
+                hws.arti.setPower(0);
             }
 
 
