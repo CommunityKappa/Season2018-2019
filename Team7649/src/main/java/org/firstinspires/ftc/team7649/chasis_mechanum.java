@@ -63,7 +63,7 @@ public class chasis_mechanum extends LinearOpMode {
         hws.init(hardwareMap);
 
         // Send telemetry message to signify robot waiting;
-        telemetry.addData("Say", "Hello Driver");    //
+        telemetry.addData("Say", "Vamos tu puedes,kuchau(eso es del año del caldo) tu puedes perro prehispanico");    //
         telemetry.update();
 
         // Wait for the game to start (driver presses PLAY)
@@ -122,6 +122,15 @@ public class chasis_mechanum extends LinearOpMode {
                 hws. arti. setPower(-1);
             } else{
                 hws.arti.setPower(0);
+            }
+            //start BBBB
+
+            if (gamepad2.dpad_up){
+                hws.brazo.setPower(1);
+            } else if (gamepad2.dpad_down){
+                hws.brazo.setPower(-1);
+            } else{
+                hws.brazo.setPower(0);
             }
 
 

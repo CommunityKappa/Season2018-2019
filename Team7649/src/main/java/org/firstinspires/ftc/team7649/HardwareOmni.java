@@ -30,8 +30,10 @@
 package org.firstinspires.ftc.team7649;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import  com.qualcomm.robotcore.hardware.CRServo;
 
 /**
  * This is NOT an opmode.
@@ -59,6 +61,7 @@ public class HardwareOmni {
     public DcMotor slider = null;
     public DcMotor arti = null;
     public DcMotor intake = null;
+    public CRServo brazo = null;
 
 
     public double y1;
@@ -94,6 +97,7 @@ public class HardwareOmni {
         slider = hwMap.get(DcMotor.class, "SL");
         arti = hwMap.get(DcMotor.class, "AR");
         intake = hwMap.get(DcMotor.class, "IN");
+        brazo = hwMap.get(CRServo.class, "BR");
 
 
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
@@ -101,9 +105,10 @@ public class HardwareOmni {
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         backRightDrive.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
         lift.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
-        slider.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
-        arti.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
-        intake.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        slider.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
+        arti.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
+        intake.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
+        brazo.setDirection(CRServo.Direction.FORWARD);
 
 
         // Set all motors to zero power
@@ -115,6 +120,7 @@ public class HardwareOmni {
         slider.setPower(0);
         arti.setPower(0);
         intake.setPower(0);
+        brazo.setPower(0);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.
@@ -126,6 +132,7 @@ public class HardwareOmni {
         slider.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         arti.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
 
 
 
