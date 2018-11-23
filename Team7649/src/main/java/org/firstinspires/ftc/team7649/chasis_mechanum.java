@@ -93,9 +93,9 @@ public class chasis_mechanum extends LinearOpMode {
             }
 
             if (gamepad1.dpad_up){          //set power elevador
-                hws.lift.setPower(1);
+                hws.lift.setPower(0.5);
             } else if (gamepad1.dpad_down){
-                hws.lift.setPower(-1);
+                hws.lift.setPower(-0.5);
             } else{
                 hws.lift.setPower(0);
             }
