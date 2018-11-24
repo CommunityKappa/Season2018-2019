@@ -86,8 +86,8 @@ public class Ari2 extends LinearOpMode {
             double turn = -gamepad1.left_stick_x;
             leftPower = Range.clip(drive + turn, -1.0, 1.0);
             rightPower = Range.clip(drive - turn, -1.0, 1.0);
-            centrePower = gamepad1.right_stick_x;
-            centrePower = Range.clip(centrePower,-0.5,0.5);  //ni idea de que pasa
+            centrePower = -gamepad1.right_stick_x;
+            centrePower = Range.clip(centrePower,-0.7,0.7);  //ni idea de que pasa
             // Run wheels in POV mode (note: The joystick goes negative when pushed forwards, so negate it)
             // In this mode the Left stick moves the robot fwd and back, the Right stick turns left and right.
             // This way it's also easy to just drive straight, or just turn.
@@ -107,11 +107,6 @@ public class Ari2 extends LinearOpMode {
             robot.rightDrive.setPower(rightPower);
             robot.centreDrive.setPower(centrePower);
 
-            if (gamepad1.a) {
-                robot.recogedor.setPower(0.7);
-            } else {
-                robot.recogedor.setPower(0);
-            }
 
             if (gamepad1.dpad_up) {
                 robot.lift.setPower(1);
@@ -126,8 +121,12 @@ public class Ari2 extends LinearOpMode {
             }
            //start b
             if (gamepad2.a){
-                robot.recogedor.setPower(-1);
-            }else{
+                robot.recogedor.setPower(-0.7);
+            }else if (gamepad2.b){
+                robot.recogedor.setPower(1);
+            } else if (gamepad2.y){
+                robot.recogedor.setPower(0.5);
+            } else {
                 robot.recogedor.setPower(0);
             }
 
@@ -142,7 +141,7 @@ public class Ari2 extends LinearOpMode {
             if (gamepad2.dpad_up){
                 robot.arti.setPower(0.5);
             }else if (gamepad2.dpad_down){
-                robot.arti.setPower(0.5);
+                robot.arti.setPower(-0.5);
             }else{
                 robot.arti.setPower(0);
             }
