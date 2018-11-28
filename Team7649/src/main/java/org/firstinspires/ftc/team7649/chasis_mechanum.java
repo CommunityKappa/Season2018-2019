@@ -117,9 +117,9 @@ public class chasis_mechanum extends LinearOpMode {
             }
 
             if (gamepad1.y){
-                hws.arti.setPower(1);
+                hws.arti.setPower(0.8);
             } else if(gamepad1.a){
-                hws. arti. setPower(-1);
+                hws. arti. setPower(-0.8);
             } else{
                 hws.arti.setPower(0);
             }
@@ -127,19 +127,32 @@ public class chasis_mechanum extends LinearOpMode {
 
             if (gamepad2.dpad_up){
                 hws.brazo.setPower(1);
+                hws.brazoa.setPower(1);
             } else if (gamepad2.dpad_down){
                 hws.brazo.setPower(-1);
+                hws.brazoa.setPower(-1);
             } else{
                 hws.brazo.setPower(0);
+                hws.brazoa.setPower(0);
+            }
+
+            if (gamepad2.x){
+                hws.outtake.setPower(0.3);
+
+            } else if (gamepad2.b){
+                hws.outtake.setPower(-0.3);
+            } else {
+                hws.outtake.setPower(0);
             }
 
 
-            telemetry.addData("Turboooooooo", turbo);
+
+            telemetry.addData("Turboooooooo prro", turbo);
             // Sets the joystick values to variables for better math understanding
             // The Y axis goes
             hws.y1 = gamepad1.left_stick_y;
-            hws.x1 = gamepad1.left_stick_x;
-            hws.x2 = gamepad1.right_stick_x;
+            hws.x1 = -gamepad1.left_stick_x;
+            hws.x2 = -gamepad1.right_stick_x;
             double y1 = gamepad1.left_stick_y;
             double x1 = gamepad1.left_stick_x;
             double x2 = gamepad1.right_stick_x;

@@ -29,6 +29,8 @@
 
 package org.firstinspires.ftc.team7649;
 
+import android.app.ApplicationErrorReport;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -62,6 +64,8 @@ public class HardwareOmni {
     public DcMotor arti = null;
     public DcMotor intake = null;
     public CRServo brazo = null;
+    public CRServo brazoa = null;
+    public CRServo outtake = null;
 
 
     public double y1;
@@ -98,6 +102,9 @@ public class HardwareOmni {
         arti = hwMap.get(DcMotor.class, "AR");
         intake = hwMap.get(DcMotor.class, "IN");
         brazo = hwMap.get(CRServo.class, "BR");
+        brazoa = hwMap.get(CRServo.class,"BRA");
+        outtake = hwMap.get(CRServo. class,"OU");
+
 
 
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
@@ -109,6 +116,8 @@ public class HardwareOmni {
         arti.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
         intake.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
         brazo.setDirection(CRServo.Direction.FORWARD);
+        brazoa.setDirection(CRServo.Direction.REVERSE);
+        outtake.setDirection(CRServo.Direction.FORWARD);
 
 
         // Set all motors to zero power
@@ -121,6 +130,8 @@ public class HardwareOmni {
         arti.setPower(0);
         intake.setPower(0);
         brazo.setPower(0);
+        brazoa.setPower(0);
+        outtake.setPower(0);
 
         // Set all motors to run without encoders.
         // May want to use RUN_USING_ENCODERS if encoders are installed.

@@ -125,7 +125,7 @@ public class Ari2 extends LinearOpMode {
             }else if (gamepad2.b){
                 robot.recogedor.setPower(1);
             } else if (gamepad2.y){
-                robot.recogedor.setPower(0.5);
+                robot.recogedor.setPower(0.2);
             } else {
                 robot.recogedor.setPower(0);
             }

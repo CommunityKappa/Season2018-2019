@@ -110,7 +110,7 @@ public class HardwareAri {
         leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         liftA.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        recogedor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        recogedor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         arti.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         slider.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
