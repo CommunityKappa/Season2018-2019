@@ -117,9 +117,9 @@ public class chasis_mechanum extends LinearOpMode {
             }
 
             if (gamepad1.y){
-                hws.arti.setPower(0.8);
+                hws.arti.setPower(0.5);
             } else if(gamepad1.a){
-                hws. arti. setPower(-0.8);
+                hws. arti. setPower(-0.5);
             } else{
                 hws.arti.setPower(0);
             }

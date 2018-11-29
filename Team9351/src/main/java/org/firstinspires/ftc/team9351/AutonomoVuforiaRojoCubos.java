@@ -30,9 +30,8 @@
 package org.firstinspires.ftc.team9351;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
@@ -40,7 +39,16 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.Came
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
+
+
+import com.qualcomm.robotcore.util.ElapsedTime;
+
+
 import java.util.List;
+
+import static org.firstinspires.ftc.team9351.Paths.COUNTS_PER_INCH;
+import static org.firstinspires.ftc.team9351.Paths.DRIVE_SPEED;
+import static org.firstinspires.ftc.team9351.Paths.TURN_SPEED;
 
 /**
  * This 2018-2019 OpMode illustrates the basics of using the TensorFlow Object Detection API to
@@ -52,9 +60,14 @@ import java.util.List;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
-@Autonomous(name = "experimento", group = "pushbot")
+@Autonomous(name = "AutonomoVuforiaRojoCubos", group = "pushbot")
 //@Disabled
-public class experimento_berdeja extends LinearOpMode {
+public class AutonomoVuforiaRojoCubos extends LinearOpMode {
+    HardwareAri robot           = new HardwareAri();
+    private ElapsedTime     runtime = new ElapsedTime();
+
+
+
     private static final String TFOD_MODEL_ASSET = "RoverRuckus.tflite";
     private static final String LABEL_GOLD_MINERAL = "Gold Mineral";
     private static final String LABEL_SILVER_MINERAL = "Silver Mineral";
@@ -87,8 +100,10 @@ public class experimento_berdeja extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
+        robot.init(hardwareMap);
         initVuforia();
 
         if (ClassFactory.getInstance().canCreateTFObjectDetector()) {
@@ -132,6 +147,19 @@ public class experimento_berdeja extends LinearOpMode {
                         if (goldMineralX != -1 && silverMineral1X != -1 && silverMineral2X != -1) {
                           if (goldMineralX < silverMineral1X && goldMineralX < silverMineral2X) {
                             telemetry.addData("Gold Mineral Position", "Left");
+                              encoderLift(.5, 2,5.0); //bajar de lander
+                              encoderDrive(DRIVE_SPEED,0,0,1,5.0);//slide
+                              encoderDrive(DRIVE_SPEED,1,1,0,5.0);// separase lander
+                              encoderDrive(TURN_SPEED,-1,1,0,5.0); // girar izquierda
+                              encoderDrive(DRIVE_SPEED,18,18,0,5.0);//arrasar
+                              //encoderDrive(TURN_SPEED,1,-1,0,0.5);//apuntar
+                              //robot.recogedor.setPower(1);
+                             // sleep(1000);        //disparar
+                              //robot.recogedor.setPower(0);
+                              //encoderDrive(DRIVE_SPEED,-5,-5,0,5.0); // pa tras
+                              //encoderDrive(TURN_SPEED,10,-10,0,5.0); //girars deresha
+                              //encoderDrive(DRIVE_SPEED,20,20,0,5.0); //puro pa delante, fierro pariente
+
                           } else if (goldMineralX > silverMineral1X && goldMineralX > silverMineral2X) {
                             telemetry.addData("Gold Mineral Position", "Right");
                           } else {
@@ -177,5 +205,123 @@ public class experimento_berdeja extends LinearOpMode {
         TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_GOLD_MINERAL, LABEL_SILVER_MINERAL);
+    }
+    public void encoderDrive(double speed,
+                             double leftInches, double rightInches, double centerInches,
+                             double timeoutS) {
+        int newLeftTarget;
+        int newRightTarget;
+        int newCenterTaget;
+
+        // Ensure that the opmode is still active
+        if (opModeIsActive()) {
+
+            // Determine new target position, and pass to motor controller
+            newLeftTarget = robot.leftDrive.getCurrentPosition() + (int)(leftInches * COUNTS_PER_INCH);
+            newRightTarget = robot.rightDrive.getCurrentPosition() + (int)(rightInches * COUNTS_PER_INCH);
+            newCenterTaget = robot.centreDrive.getCurrentPosition() + (int)(centerInches* COUNTS_PER_INCH);
+
+            robot.leftDrive.setTargetPosition(newLeftTarget);
+            robot.rightDrive.setTargetPosition(newRightTarget);
+            robot.centreDrive.setTargetPosition(newCenterTaget);
+
+            // Turn On RUN_TO_POSITION
+            robot.leftDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.rightDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.centreDrive.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            // reset the timeout time and start motion.
+            runtime.reset();
+            robot.leftDrive.setPower(Math.abs(speed));
+            robot.rightDrive.setPower(Math.abs(speed));
+            robot.centreDrive.setPower(Math.abs(speed));
+
+            // keep looping while we are still active, and there is time left, and both motors are running.
+            // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
+            // its target position, the motion will stop.  This is "safer" in the event that the robot will
+            // always end the motion as soon as possible.
+            // However, if you require that BOTH motors have finished their moves before the robot continues
+            // onto the next step, use (isBusy() || isBusy()) in the loop test.
+            while (opModeIsActive() &&
+                    (runtime.seconds() < timeoutS) &&
+                    (robot.leftDrive.isBusy() && robot.rightDrive.isBusy() && robot.centreDrive.isBusy())) {
+
+                // Display it for the driver.
+                telemetry.addData("Path1",  "Running to %7d :%7d :%7d", newLeftTarget,  newRightTarget);
+                telemetry.addData("Path2",  "Running at %7d :%7d :%7d",
+                        robot.leftDrive.getCurrentPosition(),
+                        robot.rightDrive.getCurrentPosition(),
+                        robot.centreDrive.getCurrentPosition());
+                telemetry.update();
+            }
+
+            // Stop all motion;
+            robot.leftDrive.setPower(0);
+            robot.rightDrive.setPower(0);
+            robot.centreDrive.setPower(0);
+
+            // Turn off RUN_TO_POSITION
+            robot.leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.centreDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+            //  sleep(250);   // optional pause after each move
+        }
+
+
+    }
+
+    public void encoderLift (double speed,
+                             double inches,  double timeoutS) {
+        int newTarget;
+
+        // Ensure that the opmode is still active
+        if (opModeIsActive()) {
+
+            // Determine new target position, and pass to motor controller
+            newTarget = robot.liftA.getCurrentPosition() + (int)(inches * COUNTS_PER_INCH);
+            newTarget = robot.lift.getCurrentPosition() + (int)(inches * COUNTS_PER_INCH);
+
+            robot.liftA.setTargetPosition(newTarget);
+            robot.lift.setTargetPosition(newTarget);
+
+            // Turn On RUN_TO_POSITION
+            robot.lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            robot.liftA.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            // reset the timeout time and start motion.
+            runtime.reset();
+            robot.lift.setPower(Math.abs(speed));
+            robot.liftA.setPower(Math.abs(speed));
+
+            // keep looping while we are still active, and there is time left, and both motors are running.
+            // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
+            // its target position, the motion will stop.  This is "safer" in the event that the robot will
+            // always end the motion as soon as possible.
+            // However, if you require that BOTH motors have finished their moves before the robot continues
+            // onto the next step, use (isBusy() || isBusy()) in the loop test.
+            while (opModeIsActive() &&
+                    (runtime.seconds() < timeoutS) &&
+                    (robot.liftA.isBusy() && robot.lift.isBusy() )) {
+
+                // Display it for the driver.
+                telemetry.addData("Path1",  "Running to %7d", newTarget);
+                telemetry.addData("Path2",  "Running at %7d :%7d ",
+                        robot.liftA.getCurrentPosition(),
+                        robot.lift.getCurrentPosition());
+                telemetry.update();
+            }
+
+            // Stop all motion;
+            robot.liftA.setPower(0);
+            robot.lift.setPower(0);
+
+            // Turn off RUN_TO_POSITION
+            robot.liftA.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            robot.lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
+            //  sleep(250);   // optional pause after each move
+        }
     }
 }
