@@ -63,8 +63,8 @@ public class HardwareOmni {
     public DcMotor slider = null;
     public DcMotor arti = null;
     public DcMotor intake = null;
-    public CRServo brazo = null;
-    public CRServo brazoa = null;
+    public CRServo brazoR = null;
+    public CRServo brazoL = null;
     public CRServo outtake = null;
 
 
@@ -101,8 +101,8 @@ public class HardwareOmni {
         slider = hwMap.get(DcMotor.class, "SL");
         arti = hwMap.get(DcMotor.class, "AR");
         intake = hwMap.get(DcMotor.class, "IN");
-        brazo = hwMap.get(CRServo.class, "BR");
-        brazoa = hwMap.get(CRServo.class,"BRA");
+        brazoR = hwMap.get(CRServo.class, "BRR");
+        brazoL = hwMap.get(CRServo.class,"BRL");
         outtake = hwMap.get(CRServo. class,"OU");
 
 
@@ -115,8 +115,8 @@ public class HardwareOmni {
         slider.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
         arti.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
         intake.setDirection(DcMotor.Direction.FORWARD);// Set to FORWARD if using AndyMark motors
-        brazo.setDirection(CRServo.Direction.FORWARD);
-        brazoa.setDirection(CRServo.Direction.REVERSE);
+        brazoR.setDirection(CRServo.Direction.FORWARD);
+        brazoL.setDirection(CRServo.Direction.REVERSE);
         outtake.setDirection(CRServo.Direction.FORWARD);
 
 
@@ -129,8 +129,8 @@ public class HardwareOmni {
         slider.setPower(0);
         arti.setPower(0);
         intake.setPower(0);
-        brazo.setPower(0);
-        brazoa.setPower(0);
+        brazoR.setPower(0);
+        brazoL.setPower(0);
         outtake.setPower(0);
 
         // Set all motors to run without encoders.

@@ -126,14 +126,14 @@ public class chasis_mechanum extends LinearOpMode {
             //start BBBB
 
             if (gamepad2.dpad_up){
-                hws.brazo.setPower(1);
-                hws.brazoa.setPower(1);
+                hws.brazoR.setPower(1);
+                hws.brazoL.setPower(1);
             } else if (gamepad2.dpad_down){
-                hws.brazo.setPower(-1);
-                hws.brazoa.setPower(-1);
+                hws.brazoR.setPower(-1);
+                hws.brazoL.setPower(-1);
             } else{
-                hws.brazo.setPower(0);
-                hws.brazoa.setPower(0);
+                hws.brazoR.setPower(0);
+                hws.brazoL.setPower(0);
             }
 
             if (gamepad2.x){
