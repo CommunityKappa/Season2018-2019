@@ -146,12 +146,25 @@ public class AutonomoVuforiaRojoCubos extends LinearOpMode {
                           /* se localiza el gold mineral si encuentra  objetos en a imagen */
                         if (goldMineralX != -1 && silverMineral1X != -1 && silverMineral2X != -1) {
                           if (goldMineralX < silverMineral1X && goldMineralX < silverMineral2X) {
-                            telemetry.addData("Gold Mineral Position", "Left");
-                              encoderLift(.5, 2,5.0); //bajar de lander
-                              encoderDrive(DRIVE_SPEED,0,0,1,5.0);//slide
-                              encoderDrive(DRIVE_SPEED,1,1,0,5.0);// separase lander
-                              encoderDrive(TURN_SPEED,-1,1,0,5.0); // girar izquierda
-                              encoderDrive(DRIVE_SPEED,18,18,0,5.0);//arrasar
+                              telemetry.addData("Gold Mineral Position", "Left");
+                                sleep(500);
+                                robot.centreDrive.setPower(-1);
+                                robot.rightDrive.setPower(-0.5);
+                                robot.leftDrive.setPower(0.5);
+                                sleep(2000);
+                                robot.centreDrive.setPower(0);
+                                robot.rightDrive.setPower(0);
+                                robot.leftDrive.setPower(0);
+                                sleep(10000);
+
+
+                              //encoderLift(.1, 1,1); //bajar de lander
+                              //sleep(100000);
+                              //encoderDrive(1,0,0,100,5.0);//slide
+                              //sleep(1000);
+                              //encoderDrive(DRIVE_SPEED,1,1,0,5.0);// separase lander
+                              //encoderDrive(TURN_SPEED,-1,1,0,5.0); // girar izquierda
+                              //encoderDrive(DRIVE_SPEED,18,18,0,5.0);//arrasar
                               //encoderDrive(TURN_SPEED,1,-1,0,0.5);//apuntar
                               //robot.recogedor.setPower(1);
                              // sleep(1000);        //disparar
@@ -272,17 +285,17 @@ public class AutonomoVuforiaRojoCubos extends LinearOpMode {
     }
 
     public void encoderLift (double speed,
-                             double inches,  double timeoutS) {
+                             double rotations,  double timeoutS) {
         int newTarget;
-
+        int newTargetA;
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newTarget = robot.liftA.getCurrentPosition() + (int)(inches * COUNTS_PER_INCH);
-            newTarget = robot.lift.getCurrentPosition() + (int)(inches * COUNTS_PER_INCH);
+            newTargetA = robot.liftA.getCurrentPosition() + (int)(rotations * 1220);
+            newTarget = robot.lift.getCurrentPosition() + (int)(rotations* 1220);
 
-            robot.liftA.setTargetPosition(newTarget);
+            robot.liftA.setTargetPosition(newTargetA);
             robot.lift.setTargetPosition(newTarget);
 
             // Turn On RUN_TO_POSITION

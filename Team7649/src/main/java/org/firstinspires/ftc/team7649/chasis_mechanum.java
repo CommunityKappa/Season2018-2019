@@ -63,7 +63,7 @@ public class chasis_mechanum extends LinearOpMode {
         hws.init(hardwareMap);
 
         // Send telemetry message to signify robot waiting;
-        telemetry.addData("Say", "Vamos tu puedes,kuchau(eso es del año del caldo) tu puedes perro prehispanico");    //
+        telemetry.addData("Say", "Vamos tu puedes perro prehispanico");    //
         telemetry.update();
 
         // Wait for the game to start (driver presses PLAY)
@@ -100,9 +100,9 @@ public class chasis_mechanum extends LinearOpMode {
                 hws.lift.setPower(0);
             }
 
-            if (gamepad1.b){              // set power intake
+            if (gamepad2.left_bumper){              // set power intake
                 hws.intake.setPower(1);
-            } else if (gamepad1.x) {
+            } else if (gamepad2.right_bumper) {
                 hws.intake.setPower(-1);
             } else {
                 hws.intake.setPower(0);
@@ -116,31 +116,31 @@ public class chasis_mechanum extends LinearOpMode {
                 hws.slider.setPower(0);
             }
 
-            if (gamepad1.y){
+            if (gamepad2.dpad_right){
                 hws.arti.setPower(0.5);
-            } else if(gamepad1.a){
+            } else if(gamepad2.dpad_left){
                 hws. arti. setPower(-0.5);
             } else{
                 hws.arti.setPower(0);
             }
             //start BBBB
 
-            if (gamepad2.dpad_up){
-                hws.brazoR.setPower(1);
-                hws.brazoL.setPower(1);
-            } else if (gamepad2.dpad_down){
-                hws.brazoR.setPower(-1);
-                hws.brazoL.setPower(-1);
+            if (gamepad2.dpad_down){
+                hws.brazoR.setPower(.15);
+                hws.brazoL.setPower(.15);
+            } else if (gamepad2.dpad_up){
+                hws.brazoR.setPower(-.3);
+                hws.brazoL.setPower(-.3);
             } else{
                 hws.brazoR.setPower(0);
                 hws.brazoL.setPower(0);
             }
 
             if (gamepad2.x){
-                hws.outtake.setPower(0.3);
+                hws.outtake.setPower(0.2);
 
             } else if (gamepad2.b){
-                hws.outtake.setPower(-0.3);
+                hws.outtake.setPower(-0.2);
             } else {
                 hws.outtake.setPower(0);
             }
