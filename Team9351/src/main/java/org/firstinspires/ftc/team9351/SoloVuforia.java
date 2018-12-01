@@ -35,6 +35,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.Func;
@@ -50,17 +51,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.Came
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
-
-
-import com.qualcomm.robotcore.util.ElapsedTime;
-
-
 import java.util.List;
 import java.util.Locale;
 
 import static org.firstinspires.ftc.team9351.Paths.COUNTS_PER_INCH;
-import static org.firstinspires.ftc.team9351.Paths.DRIVE_SPEED;
-import static org.firstinspires.ftc.team9351.Paths.TURN_SPEED;
 
 /**
  * This 2018-2019 OpMode illustrates the basics of using the TensorFlow Object Detection API to
@@ -72,9 +66,9 @@ import static org.firstinspires.ftc.team9351.Paths.TURN_SPEED;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
-@Autonomous(name = "AutonomoVuforiaRojoCubos", group = "pushbot")
-@Disabled
-public class AutonomoVuforiaRojoCubos extends LinearOpMode {
+@Autonomous(name = "SoloVuforia", group = "pushbot")
+//@Disabled
+public class SoloVuforia extends LinearOpMode {
     HardwareAri robot           = new HardwareAri();
     private ElapsedTime     runtime = new ElapsedTime();
 
@@ -182,44 +176,37 @@ public class AutonomoVuforiaRojoCubos extends LinearOpMode {
                           /* se localiza el gold mineral si encuentra  objetos en a imagen */
                         if (goldMineralX != -1 && silverMineral1X != -1 && silverMineral2X != -1) {
                           if (goldMineralX < silverMineral1X && goldMineralX < silverMineral2X) {
-                              telemetry.addData("Gold Mineral Position", "Left");
-
-                             robot.liftA.setPower(-1);
-                             robot.lift.setPower(-1);
+                             telemetry.addData("Gold Mineral Position", "Left");
+                             robot.rightDrive.setPower(0.5);
+                             robot.leftDrive.setPower(-0.5);
                              sleep(2000);
-                             robot.liftA.setPower(0);
-                             robot.lift.setPower(0);
-                             sleep(1000);
-                             robot.centreDrive.setPower(-1);
-                             robot.rightDrive.setPower(-0.5);
+                             robot.rightDrive.setPower(0.5);
                              robot.leftDrive.setPower(0.5);
-                             sleep(2000);
-                             robot.centreDrive.setPower(0);
+                             sleep(3000);
                              robot.rightDrive.setPower(0);
                              robot.leftDrive.setPower(0);
-                             sleep(10000);
+                             sleep(30000);
                                 //while (formatAngle(angles.angleUnit, angles.firstAngle)
-
-
-                              //encoderLift(.1, 1,1); //bajar de lander
-                              //sleep(100000);
-                              //encoderDrive(1,0,0,100,5.0);//slide
-                              //sleep(1000);
-                              //encoderDrive(DRIVE_SPEED,1,1,0,5.0);// separase lander
-                              //encoderDrive(TURN_SPEED,-1,1,0,5.0); // girar izquierda
-                              //encoderDrive(DRIVE_SPEED,18,18,0,5.0);//arrasar
-                              //encoderDrive(TURN_SPEED,1,-1,0,0.5);//apuntar
-                              //robot.recogedor.setPower(1);
-                             // sleep(1000);        //disparar
-                              //robot.recogedor.setPower(0);
-                              //encoderDrive(DRIVE_SPEED,-5,-5,0,5.0); // pa tras
-                              //encoderDrive(TURN_SPEED,10,-10,0,5.0); //girars deresha
-                              //encoderDrive(DRIVE_SPEED,20,20,0,5.0); //puro pa delante, fierro pariente
 
                           } else if (goldMineralX > silverMineral1X && goldMineralX > silverMineral2X) {
                             telemetry.addData("Gold Mineral Position", "Right");
+                              robot.rightDrive.setPower(-0.5);
+                              robot.leftDrive.setPower(0.5);
+                              sleep(2000);
+                              robot.rightDrive.setPower(0.5);
+                              robot.leftDrive.setPower(0.5);
+                              sleep(3000);
+                              robot.rightDrive.setPower(0);
+                              robot.leftDrive.setPower(0);
+                              sleep(30000);
                           } else {
                             telemetry.addData("Gold Mineral Position", "Center");
+                              robot.rightDrive.setPower(0.5);
+                              robot.leftDrive.setPower(0.5);
+                              sleep(3000);
+                              robot.rightDrive.setPower(0);
+                              robot.leftDrive.setPower(0);
+                              sleep(40000);
                           }
                         }
                       }

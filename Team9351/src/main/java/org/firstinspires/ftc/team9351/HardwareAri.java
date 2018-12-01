@@ -29,9 +29,12 @@
 
 package org.firstinspires.ftc.team9351;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 /**
  * This is NOT an opmode.
@@ -55,6 +58,12 @@ public class HardwareAri {
     public DcMotor liftA = null;
     public DcMotor arti = null;
     public DcMotor slider = null;
+    public BNO055IMU imu = null;
+    public Orientation lastAngles = new Orientation();
+    public double globalAngle, power = .30, correction;
+    public boolean  aButton, bButton, touched;
+
+
     /* local OpMode members. */
     HardwareMap hwMap = null;
     private ElapsedTime period = new ElapsedTime();
