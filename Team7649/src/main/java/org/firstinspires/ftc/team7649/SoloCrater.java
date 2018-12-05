@@ -54,9 +54,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Solo Bajarse", group="Pushbot")
+@Autonomous(name="Solo Crater", group="Pushbot")
 //@Disabled
-public class SoloBajarse extends LinearOpMode {
+public class SoloCrater extends LinearOpMode {
 
     /* Declare OpMode members. */
     HardwareOmni         robot   = new HardwareOmni();   // Use a Pushbot's hardware
@@ -79,25 +79,17 @@ public class SoloBajarse extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        robot.lift.setPower(-1);
-        sleep(2000);
-        robot.lift.setPower(0);
-        sleep(1000);
-        robot.frontRightDrive.setPower(-0.5);
+
+        robot.frontRightDrive.setPower(0.5);
         robot.backRightDrive.setPower(0.5);
         robot.frontLeftDrive.setPower(0.5);
-        robot.backLeftDrive.setPower(-0.5);
-        sleep(1000);
-        robot.frontRightDrive.setPower(-0.5);
-        robot.backRightDrive.setPower(-0.5);
-        robot.frontLeftDrive.setPower(-0.5);
-        robot.backLeftDrive.setPower(-0.5);
-        sleep(1000);
+        robot.backLeftDrive.setPower(0.5);
+        sleep(4000);
         robot.frontRightDrive.setPower(0);
         robot.backRightDrive.setPower(0);
         robot.frontLeftDrive.setPower(0);
         robot.backLeftDrive.setPower(0);
-        sleep(10000);
+        sleep(40000);
 
 
         telemetry.addData("Path", "Complete");

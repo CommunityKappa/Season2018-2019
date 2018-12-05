@@ -82,8 +82,8 @@ public class SoloBajarse extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        robot.liftA.setPower(-1);
-        robot.lift.setPower(-1);
+        robot.liftA.setPower(1);
+        robot.lift.setPower(1);
         sleep(2000);
         robot.liftA.setPower(0);
         robot.lift.setPower(0);
